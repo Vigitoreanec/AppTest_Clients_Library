@@ -1,0 +1,90 @@
+﻿@using WebApplication_Clients_Library.ViewModel
+@model ClientFilterVM
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<form asp-controller="Clients" asp-action="Index" method="get">
+    
+    Поиск по ФИО:
+    <input type="text" name="NameClient" />
+    <input type="submit" value="Поиск" />
+    Пол:
+    <select asp-for="Gender" asp-items="Model.Genders">
+        <option value="">Все</option>
+    </select>
+    Фильтр по дате:
+    <select asp-for="DateBithDate">
+            @* asp-items="Model.DateFilter" *@
+        <option value="">Все</option>
+        <option value="1">По возрастанию</option>
+        <option value="2">По убыванию</option>
+    </select>
+    Фильтр:    
+    <select asp-for="SelectFilter">
+        @* asp-items="Model.Filter" *@
+        <option value="">Все</option>
+        <option value="Ask">От А до Я</option>
+        <option value="Desk">От Я до А</option>
+    </select>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Clients[0].SurName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Clients[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Clients[0].BithDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Clients[0].Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Clients[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Clients[0].TelNumber)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Clients) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SurName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BithDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TelNumber)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
